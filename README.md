@@ -1,0 +1,2 @@
+# chessAI
+ai playing chess
