@@ -11,7 +11,7 @@ import torch.optim
 from torch import nn
 from torch.nn.utils.rnn import pad_sequence
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 SIDES = ['white', 'black']
 
