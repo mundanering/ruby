@@ -90,76 +90,17 @@ def game_state(_board):
             return 'white'
 
 
-def calculate_loss(_win, _board, colour):
+def calculate_loss(_win, _board, _colour):
+    queen_present = 'Q' in _board.board_fen() if _colour == 'white' else 'q' in _board.board_fen()
+    base_loss = 0.2 if queen_present else -0.05
+    exp_term = math.exp(((_board.fullmove_number - math.pow(math.e, math.tau-math.pow(math.e, 0.25))) / math.pow(math.e, math.e)) / math.pi)
+
     if _win == 'yes':
-        if colour == 'white':
-            if 'Q' in _board.board_fen():
-                if _board.fullmove_number <= 20:
-                    return 1.00
-                else:
-                    return 1.00 + (_board.fullmove_number * 0.001)
-            else:
-                if _board.fullmove_number <= 20:
-                    return -1.00
-                else:
-                    return 0.01 + (_board.fullmove_number * 0.001)
-        else:
-            if 'q' in _board.board_fen():
-                if _board.fullmove_number <= 20:
-                    return 1.00
-                else:
-                    return 1.00 + (_board.fullmove_number * 0.001)
-            else:
-                if _board.fullmove_number <= 20:
-                    return -1.00
-                else:
-                    return 0.01 + (_board.fullmove_number * 0.001)
+        return base_loss + exp_term
     elif _win == 'no':
-        if colour == 'white':
-            if 'Q' in _board.board_fen():
-                if _board.fullmove_number <= 20:
-                    return 10.00
-                else:
-                    return 10.00 + (_board.fullmove_number * 0.01)
-            else:
-                if _board.fullmove_number <= 20:
-                    return 7.00
-                else:
-                    return 7.00 + (_board.fullmove_number * 0.01)
-        else:
-            if 'q' in _board.board_fen():
-                if _board.fullmove_number <= 20:
-                    return 10.00
-                else:
-                    return 10.00 + (_board.fullmove_number * 0.01)
-            else:
-                if _board.fullmove_number <= 20:
-                    return 7.00
-                else:
-                    return 7.00 + (_board.fullmove_number * 0.01)
+        return base_loss + 5.0 + exp_term
     elif _win == 'draw':
-        if colour == 'white':
-            if 'Q' in _board.board_fen():
-                if _board.fullmove_number <= 20:
-                    return 7.00
-                else:
-                    return 7.00 + (_board.fullmove_number * 0.01)
-            else:
-                if _board.fullmove_number <= 20:
-                    return 5.00
-                else:
-                    return 5.00 + (_board.fullmove_number * 0.01)
-        else:
-            if 'q' in _board.board_fen():
-                if _board.fullmove_number <= 20:
-                    return 7.00
-                else:
-                    return 7.00 + (_board.fullmove_number * 0.01)
-            else:
-                if _board.fullmove_number <= 20:
-                    return 5.00
-                else:
-                    return 5.00 + (_board.fullmove_number * 0.01)
+        return base_loss + 2.0 + exp_term
 
 
 def train(_model, _optimiser):
