@@ -94,42 +94,72 @@ def calculate_loss(_win, _board, colour):
     if _win == 'yes':
         if colour == 'white':
             if 'Q' in _board.board_fen():
-                return 1.00
+                if _board.fullmove_number <= 20:
+                    return 1.00
+                else:
+                    return 1.00 + (_board.fullmove_number * 0.001)
             else:
                 if _board.fullmove_number <= 20:
                     return -1.00
                 else:
-                    return 0.01
+                    return 0.01 + (_board.fullmove_number * 0.001)
         else:
             if 'q' in _board.board_fen():
-                return 1.00
+                if _board.fullmove_number <= 20:
+                    return 1.00
+                else:
+                    return 1.00 + (_board.fullmove_number * 0.001)
             else:
                 if _board.fullmove_number <= 20:
                     return -1.00
                 else:
-                    return 0.01
+                    return 0.01 + (_board.fullmove_number * 0.001)
     elif _win == 'no':
         if colour == 'white':
             if 'Q' in _board.board_fen():
-                return 10.00
+                if _board.fullmove_number <= 20:
+                    return 10.00
+                else:
+                    return 10.00 + (_board.fullmove_number * 0.01)
             else:
-                return 7.00
+                if _board.fullmove_number <= 20:
+                    return 7.00
+                else:
+                    return 7.00 + (_board.fullmove_number * 0.01)
         else:
             if 'q' in _board.board_fen():
-                return 10.00
+                if _board.fullmove_number <= 20:
+                    return 10.00
+                else:
+                    return 10.00 + (_board.fullmove_number * 0.01)
             else:
-                return 7.00
+                if _board.fullmove_number <= 20:
+                    return 7.00
+                else:
+                    return 7.00 + (_board.fullmove_number * 0.01)
     elif _win == 'draw':
         if colour == 'white':
             if 'Q' in _board.board_fen():
-                return 7.00
+                if _board.fullmove_number <= 20:
+                    return 7.00
+                else:
+                    return 7.00 + (_board.fullmove_number * 0.01)
             else:
-                return 5.00
+                if _board.fullmove_number <= 20:
+                    return 5.00
+                else:
+                    return 5.00 + (_board.fullmove_number * 0.01)
         else:
             if 'q' in _board.board_fen():
-                return 7.00
+                if _board.fullmove_number <= 20:
+                    return 7.00
+                else:
+                    return 7.00 + (_board.fullmove_number * 0.01)
             else:
-                return 5.00
+                if _board.fullmove_number <= 20:
+                    return 5.00
+                else:
+                    return 5.00 + (_board.fullmove_number * 0.01)
 
 
 def train(_model, _optimiser):
