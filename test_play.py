@@ -91,7 +91,7 @@ def game_state(_board):
 def play(_model):
     board = chess.Board()
     print(board)
-    print('-----------------')
+    print('---------------')
     if os.path.isfile('model.pth'):
         _model = torch.load('model.pth')
     else:
